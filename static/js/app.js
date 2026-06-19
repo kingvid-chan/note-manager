@@ -679,7 +679,7 @@
           }
         } catch (_) {}
       }
-      // Save periodically
+      // Save periodically (every 5s)
       draftTimer = setInterval(function () {
         const ta = document.getElementById("editor-textarea");
         const ti = document.getElementById("editor-title");
@@ -688,6 +688,12 @@
             content_md: ta.value,
             title: ti ? ti.value : "",
           }));
+          // Show draft indicator
+          var status = document.getElementById("save-status");
+          if (status && status.textContent !== "✓ Saved") {
+            status.textContent = "📝 Draft saved";
+            status.style.color = "var(--text-muted)";
+          }
         }
       }, 5000);
     }
@@ -721,8 +727,12 @@
         note = result;
         noteTags = result.tags || [];
         saved = true;
+        saving = false;
         clearDraft();
         toast("Saved ✓", "success");
+        // Update status indicator
+        var status = document.getElementById("save-status");
+        if (status) { status.textContent = "✓ Saved"; status.style.color = "var(--accent-secondary)"; }
         drawEditor();
       } catch (err) {
         toast(err.message, "error");
@@ -828,21 +838,23 @@
         </div>
         <div class="editor-toolbar">
           <div class="editor-toolbar-left">
+            <a href="#/notes" class="btn btn-sm">← Notes</a>
+            <span style="color:var(--border-color);margin:0 4px;">|</span>
             <button class="btn btn-sm btn-primary" id="btn-save">💾 Save</button>
             ${!isNew ? `<button class="btn btn-sm" id="btn-share">📤 Share</button>` : ""}
             ${!isNew ? `<button class="btn btn-sm btn-danger" id="btn-delete">🗑 Delete</button>` : ""}
-            ${saved ? `<span class="saved-indicator">✓ Saved</span>` : ""}
+            <span id="save-status" style="font-size:var(--font-size-xs);margin-left:var(--space-sm);"></span>
           </div>
           <div class="editor-toolbar-right">
-            <span style="font-size:var(--font-size-xs);color:var(--text-muted);">Ctrl+S to save</span>
+            <span style="font-size:var(--font-size-xs);color:var(--text-muted);">Ctrl+S · Markdown</span>
           </div>
         </div>
         <div class="editor-container">
           <div class="editor-pane">
-            <div class="editor-pane-header">Editor</div>
-            <div class="editor-pane-body" style="padding:0;">
-              <input class="form-input" id="editor-title" value="${esc(title)}" placeholder="Note title" style="border:none;border-bottom:1px solid var(--border-color);font-size:var(--font-size-xl);font-weight:600;padding:var(--space-md);">
-              <textarea class="editor-textarea" id="editor-textarea" placeholder="Write your note in Markdown..." style="display:block;padding:var(--space-md);">${esc(content)}</textarea>
+            <div class="editor-pane-header">Markdown</div>
+            <div class="editor-pane-body" style="padding:0;display:flex;flex-direction:column;">
+              <input class="form-input" id="editor-title" value="${esc(title)}" placeholder="Note title" style="border:none;border-bottom:1px solid var(--border-color);font-size:var(--font-size-xl);font-weight:600;padding:var(--space-md);flex-shrink:0;">
+              <textarea class="editor-textarea" id="editor-textarea" placeholder="Write in Markdown..." style="display:block;padding:var(--space-md);flex:1;">${esc(content)}</textarea>
             </div>
           </div>
           <div class="editor-pane">
@@ -884,6 +896,9 @@
       const textarea = document.getElementById("editor-textarea");
       textarea.addEventListener("input", function () {
         updatePreview();
+        // Show draft indicator
+        var status = document.getElementById("save-status");
+        if (status) { status.textContent = "✎ Unsaved"; status.style.color = "var(--accent-warning)"; }
       });
 
       // Ctrl+S / Cmd+S
