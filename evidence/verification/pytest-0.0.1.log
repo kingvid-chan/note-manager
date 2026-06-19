@@ -1,0 +1,281 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.13, pytest-9.1.0, pluggy-1.6.0 -- /Users/cqw/miniconda3/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/cqw/外部需求/proj-b7f218
+plugins: anyio-4.12.1, flask-1.3.0, cov-7.1.0, asyncio-1.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 180 items
+
+tests/test_auth.py::TestHashPassword::test_hash_returns_string PASSED    [  0%]
+tests/test_auth.py::TestHashPassword::test_hash_is_deterministic_for_same_salt PASSED [  1%]
+tests/test_auth.py::TestHashPassword::test_verify_correct_password PASSED [  1%]
+tests/test_auth.py::TestHashPassword::test_verify_wrong_password PASSED  [  2%]
+tests/test_auth.py::TestHashPassword::test_verify_empty_password PASSED  [  2%]
+tests/test_auth.py::TestHashPassword::test_unicode_normalization PASSED  [  3%]
+tests/test_auth.py::TestJWTToken::test_create_token_returns_string PASSED [  3%]
+tests/test_auth.py::TestJWTToken::test_decode_valid_token PASSED         [  4%]
+tests/test_auth.py::TestJWTToken::test_decode_tampered_token PASSED      [  5%]
+tests/test_auth.py::TestJWTToken::test_decode_empty_token PASSED         [  5%]
+tests/test_auth.py::TestJWTToken::test_decode_nonsense_token PASSED      [  6%]
+tests/test_auth.py::TestJWTToken::test_decode_none_token PASSED          [  6%]
+tests/test_auth.py::TestJWTToken::test_token_contains_exp PASSED         [  7%]
+tests/test_auth.py::TestJWTToken::test_expiry_is_future PASSED           [  7%]
+tests/test_auth.py::TestJWTToken::test_expired_token PASSED              [  8%]
+tests/test_auth.py::TestJWTToken::test_wrong_secret PASSED               [  8%]
+tests/test_auth.py::TestJWTToken::test_different_algorithm PASSED        [  9%]
+tests/test_auth.py::TestJWTToken::test_missing_sub PASSED                [ 10%]
+tests/test_auth.py::TestRegisterAPI::test_register_success PASSED        [ 10%]
+tests/test_auth.py::TestRegisterAPI::test_register_duplicate_username PASSED [ 11%]
+tests/test_auth.py::TestRegisterAPI::test_register_duplicate_email PASSED [ 11%]
+tests/test_auth.py::TestRegisterAPI::test_register_invalid_email PASSED  [ 12%]
+tests/test_auth.py::TestRegisterAPI::test_register_short_username PASSED [ 12%]
+tests/test_auth.py::TestRegisterAPI::test_register_short_password PASSED [ 13%]
+tests/test_auth.py::TestRegisterAPI::test_register_missing_field PASSED  [ 13%]
+tests/test_auth.py::TestLoginAPI::test_login_success PASSED              [ 14%]
+tests/test_auth.py::TestLoginAPI::test_login_wrong_password PASSED       [ 15%]
+tests/test_auth.py::TestLoginAPI::test_login_nonexistent_user PASSED     [ 15%]
+tests/test_auth.py::TestLoginAPI::test_login_form_urlencoded PASSED      [ 16%]
+tests/test_auth.py::TestLoginAPI::test_login_missing_username PASSED     [ 16%]
+tests/test_auth.py::TestLoginAPI::test_login_empty_body PASSED           [ 17%]
+tests/test_auth.py::TestMeAPI::test_me_with_valid_token PASSED           [ 17%]
+tests/test_auth.py::TestMeAPI::test_me_without_token PASSED              [ 18%]
+tests/test_auth.py::TestMeAPI::test_me_with_invalid_token PASSED         [ 18%]
+tests/test_auth.py::TestMeAPI::test_me_with_expired_token PASSED         [ 19%]
+tests/test_auth.py::TestMeAPI::test_me_with_wrong_token_type PASSED      [ 20%]
+tests/test_auth.py::TestMeAPI::test_me_with_nonexistent_user_in_token PASSED [ 20%]
+tests/test_edge_cases.py::TestLongTitle::test_title_too_long_422 PASSED  [ 21%]
+tests/test_edge_cases.py::TestLongTitle::test_title_exactly_256_ok PASSED [ 21%]
+tests/test_edge_cases.py::TestLongMarkdown::test_long_markdown_stored_and_returned PASSED [ 22%]
+tests/test_edge_cases.py::TestXSS::test_xss_as_plain_text PASSED         [ 22%]
+tests/test_edge_cases.py::TestXSS::test_xss_in_title PASSED              [ 23%]
+tests/test_edge_cases.py::TestSQLInjection::test_sql_injection_search_safe PASSED [ 23%]
+tests/test_edge_cases.py::TestSQLInjection::test_sql_injection_in_content PASSED [ 24%]
+tests/test_edge_cases.py::TestUnicode::test_chinese_title_and_content PASSED [ 25%]
+tests/test_edge_cases.py::TestUnicode::test_emoji_in_content PASSED      [ 25%]
+tests/test_edge_cases.py::TestUnicode::test_mixed_scripts PASSED         [ 26%]
+tests/test_edge_cases.py::TestUnicode::test_zero_width_and_special_chars PASSED [ 26%]
+tests/test_edge_cases.py::TestConcurrent::test_concurrent_creates PASSED [ 27%]
+tests/test_edge_cases.py::TestConcurrent::test_rapid_create_delete_cycle PASSED [ 27%]
+tests/test_frontend.py::TestSPAShell::test_index_html_served PASSED      [ 28%]
+tests/test_frontend.py::TestSPAShell::test_index_html_no_cache_header PASSED [ 28%]
+tests/test_frontend.py::TestSPAShell::test_index_html_also_at_index_dot_html PASSED [ 29%]
+tests/test_frontend.py::TestSPAShell::test_static_css_accessible PASSED  [ 30%]
+tests/test_frontend.py::TestSPAShell::test_static_js_accessible PASSED   [ 30%]
+tests/test_frontend.py::TestSPAShell::test_marked_js_accessible PASSED   [ 31%]
+tests/test_frontend.py::TestAuthFlow::test_full_auth_flow PASSED         [ 31%]
+tests/test_frontend.py::TestAuthFlow::test_token_persistence_scenario PASSED [ 32%]
+tests/test_frontend.py::TestAuthFlow::test_routing_guard_scenario PASSED [ 32%]
+tests/test_frontend.py::TestNotesCRUDFlow::test_full_crud_flow PASSED    [ 33%]
+tests/test_frontend.py::TestNotesCRUDFlow::test_create_multiple_notes PASSED [ 33%]
+tests/test_frontend.py::TestTagsFlow::test_full_tag_lifecycle PASSED     [ 34%]
+tests/test_frontend.py::TestTagsFlow::test_multi_note_tagging PASSED     [ 35%]
+tests/test_frontend.py::TestShareFlow::test_full_share_lifecycle PASSED  [ 35%]
+tests/test_frontend.py::TestEdgeScenarios::test_sql_injection_in_search PASSED [ 36%]
+tests/test_frontend.py::TestEdgeScenarios::test_xss_in_content PASSED    [ 36%]
+tests/test_frontend.py::TestEdgeScenarios::test_unicode_content PASSED   [ 37%]
+tests/test_frontend.py::TestEdgeScenarios::test_very_long_content PASSED [ 37%]
+tests/test_models.py::TestUserModel::test_create_user PASSED             [ 38%]
+tests/test_models.py::TestUserModel::test_username_unique_constraint PASSED [ 38%]
+tests/test_models.py::TestUserModel::test_email_unique_constraint PASSED [ 39%]
+tests/test_models.py::TestUserModel::test_username_max_length PASSED     [ 40%]
+tests/test_models.py::TestUserModel::test_email_max_length PASSED        [ 40%]
+tests/test_models.py::TestNoteModel::test_create_note PASSED             [ 41%]
+tests/test_models.py::TestNoteModel::test_default_title PASSED           [ 41%]
+tests/test_models.py::TestNoteModel::test_default_content PASSED         [ 42%]
+tests/test_models.py::TestNoteModel::test_foreign_key_invalid_user PASSED [ 42%]
+tests/test_models.py::TestNoteModel::test_cascade_delete_user_deletes_notes PASSED [ 43%]
+tests/test_models.py::TestNoteModel::test_title_max_length PASSED        [ 43%]
+tests/test_models.py::TestNoteModel::test_relationship_author PASSED     [ 44%]
+tests/test_models.py::TestTagModel::test_create_tag PASSED               [ 45%]
+tests/test_models.py::TestTagModel::test_unique_user_tag_name PASSED     [ 45%]
+tests/test_models.py::TestTagModel::test_different_users_same_tag_name PASSED [ 46%]
+tests/test_models.py::TestTagModel::test_foreign_key_invalid_user PASSED [ 46%]
+tests/test_models.py::TestTagModel::test_cascade_delete_user_deletes_tags PASSED [ 47%]
+tests/test_models.py::TestTagModel::test_relationship_owner PASSED       [ 47%]
+tests/test_models.py::TestNoteTagModel::test_create_note_tag PASSED      [ 48%]
+tests/test_models.py::TestNoteTagModel::test_composite_primary_key PASSED [ 48%]
+tests/test_models.py::TestNoteTagModel::test_cascade_delete_note_removes_notetag PASSED [ 49%]
+tests/test_models.py::TestNoteTagModel::test_cascade_delete_tag_removes_notetag PASSED [ 50%]
+tests/test_models.py::TestShareLinkModel::test_create_share_link PASSED  [ 50%]
+tests/test_models.py::TestShareLinkModel::test_token_unique_constraint PASSED [ 51%]
+tests/test_models.py::TestShareLinkModel::test_foreign_key_note_cascade PASSED [ 51%]
+tests/test_models.py::TestShareLinkModel::test_foreign_key_user_cascade PASSED [ 52%]
+tests/test_models.py::TestShareLinkModel::test_expires_at_nullable PASSED [ 52%]
+tests/test_models.py::TestShareLinkModel::test_relationship_note PASSED  [ 53%]
+tests/test_models.py::TestActivityLogModel::test_create_activity_log PASSED [ 53%]
+tests/test_models.py::TestActivityLogModel::test_set_null_on_user_delete PASSED [ 54%]
+tests/test_notes_api.py::TestCreateNote::test_create_with_title_and_content PASSED [ 55%]
+tests/test_notes_api.py::TestCreateNote::test_create_default_title PASSED [ 55%]
+tests/test_notes_api.py::TestCreateNote::test_create_with_tags PASSED    [ 56%]
+tests/test_notes_api.py::TestCreateNote::test_create_unauthorized PASSED [ 56%]
+tests/test_notes_api.py::TestCreateNote::test_create_title_too_long PASSED [ 57%]
+tests/test_notes_api.py::TestListNotes::test_list_empty PASSED           [ 57%]
+tests/test_notes_api.py::TestListNotes::test_list_with_items PASSED      [ 58%]
+tests/test_notes_api.py::TestListNotes::test_pagination_page_2 PASSED    [ 58%]
+tests/test_notes_api.py::TestListNotes::test_search_by_title PASSED      [ 59%]
+tests/test_notes_api.py::TestListNotes::test_search_by_content PASSED    [ 60%]
+tests/test_notes_api.py::TestListNotes::test_search_case_insensitive PASSED [ 60%]
+tests/test_notes_api.py::TestListNotes::test_tag_filter PASSED           [ 61%]
+tests/test_notes_api.py::TestListNotes::test_tag_filter_and_logic PASSED [ 61%]
+tests/test_notes_api.py::TestListNotes::test_tag_filter_nonexistent PASSED [ 62%]
+tests/test_notes_api.py::TestListNotes::test_per_page_limit PASSED       [ 62%]
+tests/test_notes_api.py::TestGetNote::test_get_note PASSED               [ 63%]
+tests/test_notes_api.py::TestGetNote::test_get_not_found PASSED          [ 63%]
+tests/test_notes_api.py::TestGetNote::test_get_not_owner PASSED          [ 64%]
+tests/test_notes_api.py::TestUpdateNote::test_update_title PASSED        [ 65%]
+tests/test_notes_api.py::TestUpdateNote::test_update_content PASSED      [ 65%]
+tests/test_notes_api.py::TestUpdateNote::test_update_tags PASSED         [ 66%]
+tests/test_notes_api.py::TestUpdateNote::test_update_not_owner PASSED    [ 66%]
+tests/test_notes_api.py::TestUpdateNote::test_update_not_found PASSED    [ 67%]
+tests/test_notes_api.py::TestDeleteNote::test_delete_note PASSED         [ 67%]
+tests/test_notes_api.py::TestDeleteNote::test_delete_not_owner PASSED    [ 68%]
+tests/test_notes_api.py::TestDeleteNote::test_delete_not_found PASSED    [ 68%]
+tests/test_shares.py::TestCreateShare::test_create_share PASSED          [ 69%]
+tests/test_shares.py::TestCreateShare::test_create_share_with_expiry PASSED [ 70%]
+tests/test_shares.py::TestCreateShare::test_create_share_no_expiry PASSED [ 70%]
+tests/test_shares.py::TestListShares::test_list_shares PASSED            [ 71%]
+tests/test_shares.py::TestListShares::test_list_shares_isolation PASSED  [ 71%]
+tests/test_shares.py::TestRevokeShare::test_revoke_share PASSED          [ 72%]
+tests/test_shares.py::TestRevokeShare::test_revoke_then_public_404 PASSED [ 72%]
+tests/test_shares.py::TestPublicAccess::test_public_access_share PASSED  [ 73%]
+tests/test_shares.py::TestPublicAccess::test_public_access_expired PASSED [ 73%]
+tests/test_shares.py::TestPublicAccess::test_public_access_invalid_token PASSED [ 74%]
+tests/test_shares.py::TestPublicAccess::test_public_access_revoked PASSED [ 75%]
+tests/test_shares.py::TestPublicAccess::test_public_access_no_auth PASSED [ 75%]
+tests/test_shares.py::TestShareNotOwner::test_share_not_owner_create PASSED [ 76%]
+tests/test_shares.py::TestShareNotOwner::test_share_not_owner_revoke PASSED [ 76%]
+tests/test_shares_api.py::TestCreateShare::test_create_share PASSED      [ 77%]
+tests/test_shares_api.py::TestCreateShare::test_create_share_with_expiry PASSED [ 77%]
+tests/test_shares_api.py::TestCreateShare::test_create_share_no_expiry PASSED [ 78%]
+tests/test_shares_api.py::TestCreateShare::test_create_share_nonexistent_note PASSED [ 78%]
+tests/test_shares_api.py::TestCreateShare::test_create_share_not_owner PASSED [ 79%]
+tests/test_shares_api.py::TestListShares::test_list_empty PASSED         [ 80%]
+tests/test_shares_api.py::TestListShares::test_list_with_items PASSED    [ 80%]
+tests/test_shares_api.py::TestListShares::test_list_isolated_by_user PASSED [ 81%]
+tests/test_shares_api.py::TestRevokeShare::test_revoke_share PASSED      [ 81%]
+tests/test_shares_api.py::TestRevokeShare::test_revoke_then_public_access_fails PASSED [ 82%]
+tests/test_shares_api.py::TestRevokeShare::test_revoke_not_owner PASSED  [ 82%]
+tests/test_shares_api.py::TestRevokeShare::test_revoke_nonexistent PASSED [ 83%]
+tests/test_shares_api.py::TestPublicAccess::test_public_access_valid_token PASSED [ 83%]
+tests/test_shares_api.py::TestPublicAccess::test_public_access_invalid_token PASSED [ 84%]
+tests/test_shares_api.py::TestPublicAccess::test_public_access_no_auth_required PASSED [ 85%]
+tests/test_shares_api.py::TestPublicAccess::test_public_access_revoked_share PASSED [ 85%]
+tests/test_shares_api.py::TestHealthCheck::test_healthz PASSED           [ 86%]
+tests/test_tags.py::TestCreateTag::test_create_tag PASSED                [ 86%]
+tests/test_tags.py::TestDuplicateTag::test_create_duplicate_tag PASSED   [ 87%]
+tests/test_tags.py::TestDuplicateTag::test_duplicate_tag_case_sensitive PASSED [ 87%]
+tests/test_tags.py::TestListTags::test_list_tags PASSED                  [ 88%]
+tests/test_tags.py::TestListTags::test_list_tags_with_note_count PASSED  [ 88%]
+tests/test_tags.py::TestListTags::test_list_empty PASSED                 [ 89%]
+tests/test_tags.py::TestDeleteTag::test_delete_tag PASSED                [ 90%]
+tests/test_tags.py::TestTagNotOwner::test_add_tag_not_owner PASSED       [ 90%]
+tests/test_tags.py::TestTagNotOwner::test_remove_tag_not_owner PASSED    [ 91%]
+tests/test_tags_api.py::TestCreateTag::test_create_tag_via_note PASSED   [ 91%]
+tests/test_tags_api.py::TestCreateTag::test_create_duplicate_tag_same_user PASSED [ 92%]
+tests/test_tags_api.py::TestCreateTag::test_create_empty_name PASSED     [ 92%]
+tests/test_tags_api.py::TestCreateTag::test_create_long_name PASSED      [ 93%]
+tests/test_tags_api.py::TestCreateTag::test_create_unauthorized PASSED   [ 93%]
+tests/test_tags_api.py::TestListTags::test_list_empty PASSED             [ 94%]
+tests/test_tags_api.py::TestListTags::test_list_with_items PASSED        [ 95%]
+tests/test_tags_api.py::TestListTags::test_list_with_note_count PASSED   [ 95%]
+tests/test_tags_api.py::TestListTags::test_list_isolated_by_user PASSED  [ 96%]
+tests/test_tags_api.py::TestAddTagToNote::test_add_tag_to_note PASSED    [ 96%]
+tests/test_tags_api.py::TestAddTagToNote::test_add_new_tag_via_note PASSED [ 97%]
+tests/test_tags_api.py::TestAddTagToNote::test_add_tag_to_nonexistent_note PASSED [ 97%]
+tests/test_tags_api.py::TestAddTagToNote::test_add_tag_not_owner PASSED  [ 98%]
+tests/test_tags_api.py::TestRemoveTagFromNote::test_remove_tag_from_note PASSED [ 98%]
+tests/test_tags_api.py::TestRemoveTagFromNote::test_remove_nonexistent_link PASSED [ 99%]
+tests/test_tags_api.py::TestRemoveTagFromNote::test_remove_tag_not_owner PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_auth.py: 8 warnings
+tests/test_edge_cases.py: 13 warnings
+tests/test_frontend.py: 11 warnings
+tests/test_notes_api.py: 28 warnings
+tests/test_shares.py: 15 warnings
+tests/test_shares_api.py: 18 warnings
+tests/test_tags.py: 11 warnings
+tests/test_tags_api.py: 18 warnings
+  /Users/cqw/外部需求/proj-b7f218/src/note_manager/services/auth_service.py:57: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() + timedelta(hours=settings.JWT_EXPIRATION_HOURS)
+
+tests/test_auth.py: 8 warnings
+tests/test_edge_cases.py: 44 warnings
+tests/test_frontend.py: 62 warnings
+tests/test_notes_api.py: 83 warnings
+tests/test_shares.py: 33 warnings
+tests/test_shares_api.py: 36 warnings
+tests/test_tags.py: 29 warnings
+tests/test_tags_api.py: 42 warnings
+  /Users/cqw/miniconda3/lib/python3.13/site-packages/jose/jwt.py:311: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    now = timegm(datetime.utcnow().utctimetuple())
+
+tests/test_auth.py::TestJWTToken::test_expiry_is_future
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:110: DeprecationWarning: datetime.datetime.utcfromtimestamp() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.fromtimestamp(timestamp, datetime.UTC).
+    exp = datetime.utcfromtimestamp(payload["exp"])
+
+tests/test_auth.py::TestJWTToken::test_expiry_is_future
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:111: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    assert exp > datetime.utcnow()
+
+tests/test_auth.py::TestJWTToken::test_expired_token
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:116: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() - timedelta(hours=1)
+
+tests/test_auth.py::TestJWTToken::test_wrong_secret
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:124: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    payload = {"sub": "1", "exp": datetime.utcnow() + timedelta(hours=1)}
+
+tests/test_auth.py::TestJWTToken::test_different_algorithm
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:131: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    payload = {"sub": "1", "exp": datetime.utcnow() + timedelta(hours=1)}
+
+tests/test_auth.py::TestJWTToken::test_missing_sub
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:138: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() + timedelta(hours=1)
+
+tests/test_auth.py::TestMeAPI::test_me_with_expired_token
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:335: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() - timedelta(hours=1)
+
+tests/test_auth.py::TestMeAPI::test_me_with_nonexistent_user_in_token
+  /Users/cqw/外部需求/proj-b7f218/tests/test_auth.py:355: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() + timedelta(hours=1)
+
+tests/test_frontend.py::TestNotesCRUDFlow::test_full_crud_flow
+tests/test_notes_api.py::TestUpdateNote::test_update_title
+tests/test_notes_api.py::TestUpdateNote::test_update_content
+tests/test_notes_api.py::TestUpdateNote::test_update_tags
+  /Users/cqw/外部需求/proj-b7f218/src/note_manager/services/note_service.py:219: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    note.updated_at = datetime.utcnow()
+
+tests/test_frontend.py: 1 warning
+tests/test_shares.py: 12 warnings
+tests/test_shares_api.py: 12 warnings
+  /Users/cqw/外部需求/proj-b7f218/src/note_manager/services/share_service.py:45: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expires_at = datetime.utcnow() + timedelta(hours=expires_in_hours)
+
+tests/test_frontend.py::TestShareFlow::test_full_share_lifecycle
+tests/test_shares.py::TestPublicAccess::test_public_access_share
+tests/test_shares.py::TestPublicAccess::test_public_access_expired
+tests/test_shares.py::TestPublicAccess::test_public_access_no_auth
+tests/test_shares_api.py::TestPublicAccess::test_public_access_valid_token
+tests/test_shares_api.py::TestPublicAccess::test_public_access_no_auth_required
+  /Users/cqw/外部需求/proj-b7f218/src/note_manager/routers/public.py:59: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    if share.expires_at is not None and share.expires_at <= datetime.utcnow():
+
+tests/test_notes_api.py::TestListNotes::test_tag_filter
+tests/test_notes_api.py::TestListNotes::test_tag_filter_and_logic
+  /Users/cqw/外部需求/proj-b7f218/src/note_manager/services/note_service.py:174: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+    query = query.filter(Note.id.in_(sub))
+
+tests/test_shares.py::TestCreateShare::test_create_share_with_expiry
+  /Users/cqw/外部需求/proj-b7f218/tests/test_shares.py:59: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    delta = expires - datetime.utcnow()
+
+tests/test_shares.py::TestPublicAccess::test_public_access_expired
+  /Users/cqw/外部需求/proj-b7f218/tests/test_shares.py:176: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    share.expires_at = datetime.utcnow() - timedelta(hours=1)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+====================== 180 passed, 506 warnings in 48.31s ======================
