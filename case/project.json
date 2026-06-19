@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "name": "笔记管理系统",
+  "slug": "note-manager",
+  "local_path": "/Users/cqw/外部需求/proj-b7f218",
+  "github_url": "https://github.com/kingvid-chan/note-manager",
+  "preview": {
+    "server": "aliyun-cowork",
+    "deploy_root": "/srv/codingagent/note-manager",
+    "service_name": "codingagent-note-manager",
+    "port": 8090,
+    "base_path": "/projects/note-manager/",
+    "public_url": "http://120.24.117.67/projects/note-manager/",
+    "health_path": "/projects/note-manager/healthz"
+  }
+}
