@@ -405,9 +405,9 @@
       }
     }
 
-    async function loadNotes() {
+    async function loadNotes(append) {
       loading = true;
-      draw();
+      if (!append) draw();
       try {
         const params = new URLSearchParams();
         params.set("page", page);
@@ -415,7 +415,11 @@
         if (search) params.set("search", search);
         if (selectedTags.length) params.set("tag", selectedTags.join(","));
         const data = await api.get("/notes?" + params.toString());
-        notes = data.items || [];
+        if (append) {
+          notes = notes.concat(data.items || []);
+        } else {
+          notes = data.items || [];
+        }
         total = data.total || 0;
       } catch (err) {
         toast(err.message, "error");
@@ -443,10 +447,11 @@
 
     function draw() {
       const user = state.currentUser;
+      const hasActiveFilters = search || selectedTags.length > 0;
       const tagItems = state.tags
         .map(function (t) {
           const active = selectedTags.indexOf(t.name) >= 0;
-          return `<span class="tag ${active ? "active" : ""}" data-tag="${esc(t.name)}">${esc(t.name)}</span>`;
+          return `<span class="tag ${active ? "active" : ""}" data-tag="${esc(t.name)}">${active ? "✓ " : ""}${esc(t.name)}</span>`;
         })
         .join("");
 
@@ -459,21 +464,24 @@
           </div>
         </div>
         <div style="max-width:var(--max-width);margin:0 auto;padding:var(--space-lg) var(--space-lg) 0;">
-          <div style="display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-md);flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:var(--space-sm);margin-bottom:var(--space-md);flex-wrap:wrap;">
             <div class="search-bar">
               <input class="form-input" id="search-input" type="text" placeholder="Search notes..." value="${esc(search)}">
             </div>
+            ${hasActiveFilters ? `<button class="btn btn-sm" id="btn-clear-filters" title="Clear all filters">✕ Clear</button>` : ""}
           </div>
-          ${state.tags.length ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--space-md);">${tagItems}</div>` : ""}
+          ${state.tags.length ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:var(--space-sm);align-items:center;">
+            <span style="font-size:var(--font-size-xs);color:var(--text-muted);margin-right:4px;">Tags:</span>${tagItems}</div>` : ""}
+          ${!loading && notes.length > 0 ? `<div style="font-size:var(--font-size-xs);color:var(--text-muted);margin-bottom:var(--space-sm);">${total} note${total !== 1 ? "s" : ""} found</div>` : ""}
         </div>
         ${loading ? `
-          <div class="loading"><div class="spinner"></div> Loading...</div>
+          <div class="loading"><div class="spinner"></div> Loading notes...</div>
         ` : notes.length === 0 ? `
           <div class="empty-state">
             <div class="empty-state-icon">📝</div>
-            <h3>No notes yet</h3>
-            <p>Create your first note to get started.</p>
-            <button class="btn btn-primary" id="btn-empty-create">Create Note</button>
+            <h3>${hasActiveFilters ? "No matching notes" : "No notes yet"}</h3>
+            <p>${hasActiveFilters ? "Try adjusting your search or filters." : "Create your first note to get started."}</p>
+            ${hasActiveFilters ? `<button class="btn" id="btn-empty-clear">Clear Filters</button>` : `<button class="btn btn-primary" id="btn-empty-create">Create Note</button>`}
           </div>
         ` : `
           <div class="card-grid">
@@ -492,13 +500,9 @@
               </div>
             `; }).join("")}
           </div>
-          ${totalPages() > 1 ? `
-            <div style="text-align:center;padding:var(--space-md);display:flex;align-items:center;justify-content:center;gap:var(--space-sm);">
-              <button class="btn btn-sm" id="btn-prev" ${page <= 1 ? "disabled" : ""}>← Prev</button>
-              <span style="color:var(--text-secondary);font-size:var(--font-size-sm);">Page ${page} / ${totalPages()}</span>
-              <button class="btn btn-sm" id="btn-next" ${page >= totalPages() ? "disabled" : ""}>Next →</button>
-            </div>
-          ` : ""}
+          <div style="text-align:center;padding:var(--space-lg);">
+            ${notes.length < total ? `<button class="btn" id="btn-load-more">Load More (${notes.length} / ${total})</button>` : ""}
+          </div>
         `}
         <button class="fab" id="fab-new" title="New Note">+</button>
         <div id="list-modals"></div>
@@ -525,6 +529,17 @@
         }, 300));
       }
 
+      // Clear filters button
+      var clearBtn = document.getElementById("btn-clear-filters");
+      if (clearBtn) {
+        clearBtn.addEventListener("click", function () {
+          search = "";
+          selectedTags = [];
+          page = 1;
+          loadNotes();
+        });
+      }
+
       // Tag filter clicks
       document.querySelectorAll(".tag[data-tag]").forEach(function (el) {
         el.addEventListener("click", function () {
@@ -547,13 +562,27 @@
         });
       });
 
-      // Empty state create button
-      var emptyBtn = document.getElementById("btn-empty-create");
-      if (emptyBtn) {
-        emptyBtn.addEventListener("click", function () {
-          router.navigate("/notes/new");
+      // Empty state buttons
+      var emptyCreate = document.getElementById("btn-empty-create");
+      var emptyClear = document.getElementById("btn-empty-clear");
+      if (emptyCreate) {
+        emptyCreate.addEventListener("click", function () { router.navigate("/notes/new"); });
+      }
+      if (emptyClear) {
+        emptyClear.addEventListener("click", function () {
+          search = "";
+          selectedTags = [];
+          page = 1;
+          loadNotes();
         });
       }
+
+      // Load More button — append next page
+      var loadMoreBtn = document.getElementById("btn-load-more");
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener("click", function () {
+          page++;
+          loadNotes(true);
 
       // Pagination
       var prevBtn = document.getElementById("btn-prev");
