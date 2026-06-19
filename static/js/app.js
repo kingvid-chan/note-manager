@@ -240,7 +240,14 @@
      ═════════════════════════════════════════════════════════════ */
 
   function authView() {
-    let tab = "login"; // login | register
+    // If already logged in, redirect to notes
+    if (api.token()) {
+      router.navigate("/notes");
+      return;
+    }
+    // Determine initial tab from hash route
+    var initTab = (window.location.hash.slice(1) === "/register") ? "register" : "login";
+    let tab = initTab;
     let error = "";
     let success = "";
 
