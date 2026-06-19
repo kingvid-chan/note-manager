@@ -2,8 +2,10 @@
 
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
@@ -56,6 +58,23 @@ app = FastAPI(
 
 # ── 中间件 ──────────────────────────────────────────────
 app.add_middleware(CacheControlMiddleware)
+
+# ── SPA Shell ───────────────────────────────────────────────
+_TEMPLATE_DIR = Path(__file__).resolve().parent.parent.parent / "templates"
+
+
+@app.get(f"{settings.BASE_PATH}/", response_class=HTMLResponse)
+@app.get(f"{settings.BASE_PATH}/index.html", response_class=HTMLResponse)
+async def spa_shell():
+    """返回 SPA 壳页面 — 前端路由由 JS hashchange 接管。
+
+    Cache-Control: no-cache 由全局中间件自动附加。
+    """
+    index_path = _TEMPLATE_DIR / "index.html"
+    if not index_path.is_file():
+        return HTMLResponse(content="<h1>index.html not found</h1>", status_code=500)
+    return HTMLResponse(content=index_path.read_text(encoding="utf-8"))
+
 
 # ── 健康检查（必须在 static mount 之前注册）──────────────
 @app.get(f"{settings.BASE_PATH}/healthz")
