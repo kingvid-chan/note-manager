@@ -1057,7 +1057,7 @@
     function draw() {
       if (loading) {
         render(`
-          <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+          <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg-primary);">
             <div class="loading"><div class="spinner"></div> Loading shared note...</div>
           </div>
         `);
@@ -1065,12 +1065,21 @@
       }
 
       if (error) {
+        var isExpired = error.status === 404;
         render(`
           <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg-primary);">
             <div class="share-error">
-              <div class="share-error-icon">🔗</div>
+              <div class="share-error-icon">${isExpired ? "⏳" : "🔗"}</div>
               <h2>${esc(error.title || "Unable to load")}</h2>
               <p>${esc(error.message || "This share link may have expired or been revoked.")}</p>
+              ${isExpired ? `
+                <p style="margin-top:var(--space-md);font-size:var(--font-size-sm);">
+                  The note may have been deleted, the share link may have expired, or the owner may have revoked access.
+                </p>
+              ` : ""}
+              <div style="margin-top:var(--space-lg);">
+                <a href="/projects/note-manager/" class="btn btn-primary">Go to Note Manager</a>
+              </div>
             </div>
           </div>
         `);
@@ -1084,12 +1093,17 @@
               <h1 class="share-title">${esc(note.title || "Untitled")}</h1>
               <div class="share-meta">
                 By <strong>${esc(note.author ? note.author.username : "unknown")}</strong>
-                ${note.created_at ? " · Created " + fmtDate(note.created_at) : ""}
-                ${note.updated_at ? " · Updated " + fmtDate(note.updated_at) : ""}
+                ${note.created_at ? " · " + fmtDate(note.created_at) : ""}
+                ${note.updated_at && note.updated_at !== note.created_at ? " · Updated " + fmtDate(note.updated_at) : ""}
               </div>
             </div>
             <div class="share-content">
               <div class="preview-content">${renderMarkdown(note.content_md || "")}</div>
+            </div>
+            <div style="text-align:center;padding:var(--space-2xl) 0;border-top:1px solid var(--border-color);margin-top:var(--space-2xl);">
+              <p style="font-size:var(--font-size-xs);color:var(--text-muted);">
+                📝 Shared via <a href="/projects/note-manager/">Note Manager</a>
+              </p>
             </div>
           </div>
         </div>
@@ -1104,10 +1118,12 @@
         draw();
       } catch (err) {
         loading = false;
-        error = {
-          title: err.status === 404 ? "Share not available" : "Error",
-          message: err.message,
-        };
+        var title = "Share not available";
+        var msg = err.message;
+        if (err.status === 404) {
+          msg = "This share link is no longer available.";
+        }
+        error = { title: title, message: msg, status: err.status };
         draw();
       }
     }
