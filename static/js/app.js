@@ -652,6 +652,8 @@
         loadMoreBtn.addEventListener("click", function () {
           page++;
           loadNotes(true);
+        });
+      }
 
       // Pagination
       var prevBtn = document.getElementById("btn-prev");
