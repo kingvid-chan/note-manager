@@ -100,6 +100,75 @@
   };
 
   /* ═════════════════════════════════════════════════════════════
+     marked.js Configuration — Global
+     ═════════════════════════════════════════════════════════════ */
+
+  /**
+   * Initialize marked.js with GFM, tables, line breaks, and sanitization.
+   * Called once on script load. Safe to call again after marked loads async.
+   */
+  function initMarked() {
+    if (typeof marked === "undefined") return false;
+
+    marked.setOptions({
+      gfm: true,        // GitHub Flavored Markdown (tables, strikethrough, task lists)
+      breaks: true,     // Convert \n → <br>
+    });
+
+    // Custom renderer: add language labels to code blocks
+    var renderer = new marked.Renderer();
+    var origCode = renderer.code.bind(renderer);
+    renderer.code = function (code, language) {
+      var langLabel = language
+        ? '<div class="code-lang">' + esc(language) + "</div>"
+        : "";
+      return (
+        '<div class="code-block-wrapper">' +
+        langLabel +
+        "<pre><code" +
+        (language ? ' class="language-' + esc(language) + '"' : "") +
+        ">" +
+        code +
+        "</code></pre></div>"
+      );
+    };
+    marked.setOptions({ renderer: renderer });
+
+    return true;
+  }
+
+  /**
+   * Sanitize rendered HTML — strip <script>, event handlers, javascript: URLs.
+   * marked v15 removed built-in sanitize; we apply a basic guard.
+   */
+  function sanitizeHTML(html) {
+    if (!html) return "";
+    // Strip <script> tags
+    html = html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+    // Strip on* event handlers
+    html = html.replace(/\son\w+\s*=\s*"[^"]*"/gi, "");
+    html = html.replace(/\son\w+\s*=\s*'[^']*'/gi, "");
+    // Strip javascript: URLs
+    html = html.replace(/href\s*=\s*"javascript:[^"]*"/gi, 'href="#"');
+    html = html.replace(/href\s*=\s*'javascript:[^']*'/gi, "href='#'");
+    return html;
+  }
+
+  /**
+   * Render Markdown → sanitized HTML. Safe to call anywhere.
+   */
+  function renderMarkdown(md) {
+    if (typeof marked === "undefined") {
+      return "<p>Markdown parser not loaded.</p>";
+    }
+    var html = marked.parse(md || "");
+    return sanitizeHTML(html);
+  }
+
+  // Init marked on load
+  initMarked();
+
+  /* ═════════════════════════════════════════════════════════════
      Router
      ═════════════════════════════════════════════════════════════ */
 
@@ -636,24 +705,6 @@
     let loading = !isNew;
     let draftTimer = null;
 
-    // marked.js config
-    if (typeof marked !== "undefined") {
-      marked.setOptions({
-        breaks: true,
-        gfm: true,
-        tables: true,
-        sanitize: false,
-        highlight: null,
-      });
-    }
-
-    function renderMarkdown(md) {
-      if (typeof marked !== "undefined") {
-        return marked.parse(md || "");
-      }
-      return "<p>Markdown parser not loaded.</p>";
-    }
-
     function updatePreview() {
       const textarea = document.getElementById("editor-textarea");
       const preview = document.getElementById("editor-preview");
@@ -1002,13 +1053,6 @@
     let loading = true;
     let error = null;
     let note = null;
-
-    function renderMarkdown(md) {
-      if (typeof marked !== "undefined") {
-        return marked.parse(md || "");
-      }
-      return "<p>Markdown parser not loaded.</p>";
-    }
 
     function draw() {
       if (loading) {
