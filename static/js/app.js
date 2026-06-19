@@ -483,7 +483,7 @@
         params.set("per_page", perPage);
         if (search) params.set("search", search);
         if (selectedTags.length) params.set("tag", selectedTags.join(","));
-        const data = await api.get("/notes?" + params.toString());
+        const data = await api.get("/notes/?" + params.toString());
         if (append) {
           notes = notes.concat(data.items || []);
         } else {
