@@ -93,21 +93,9 @@
   "http_errors": [],
   "console_errors": [],
   "screenshots": [
-    {
-      "name": "login",
-      "path": "evidence/verification/login-0.0.1.png",
-      "description": "Login page with dark theme, centered card, form fields"
-    },
-    {
-      "name": "notes",
-      "path": "evidence/verification/notes-0.0.1.png",
-      "description": "Notes list with 3-column grid, search, tag filters, 8 cards"
-    },
-    {
-      "name": "share",
-      "path": "evidence/verification/share-0.0.1.png",
-      "description": "Public share page with full Markdown rendering, checkboxes, blockquote"
-    }
+    "evidence/verification/login-0.0.1.png",
+    "evidence/verification/notes-0.0.1.png",
+    "evidence/verification/share-0.0.1.png"
   ],
   "visual_review": {
     "provider": "kimi",
