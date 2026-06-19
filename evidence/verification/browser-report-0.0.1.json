@@ -1,0 +1,119 @@
+{
+  "schema_version": 3,
+  "public_url": "http://120.24.117.67/projects/note-manager/",
+  "final_url": "https://120.24.117.67/projects/note-manager/#/login",
+  "base_path_ok": true,
+  "release_version": "0.0.1",
+  "document_response_headers": {
+    "Cache-Control": "no-cache",
+    "Content-Type": "text/html; charset=utf-8",
+    "Server": "nginx/1.24.0 (Ubuntu)"
+  },
+  "static_assets": [
+    {
+      "url": "https://120.24.117.67/projects/note-manager/static/css/style.css?v=0.0.1",
+      "status": 200,
+      "type": "stylesheet"
+    },
+    {
+      "url": "https://120.24.117.67/projects/note-manager/static/js/marked.min.js?v=0.0.1",
+      "status": 200,
+      "type": "script"
+    },
+    {
+      "url": "https://120.24.117.67/projects/note-manager/static/js/app.js?v=0.0.1",
+      "status": 200,
+      "type": "script"
+    }
+  ],
+  "stylesheets": [
+    {
+      "href": "/projects/note-manager/static/css/style.css?v=0.0.1",
+      "resolved_url": "https://120.24.117.67/projects/note-manager/static/css/style.css?v=0.0.1",
+      "status": 200
+    }
+  ],
+  "asset_probes": [
+    {
+      "url": "https://120.24.117.67/projects/note-manager/static/css/style.css?v=0.0.1",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "https://120.24.117.67/projects/note-manager/static/js/marked.min.js?v=0.0.1",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "url": "https://120.24.117.67/projects/note-manager/static/js/app.js?v=0.0.1",
+      "status": 200,
+      "method": "GET"
+    }
+  ],
+  "pages": [
+    {
+      "name": "login",
+      "url": "https://120.24.117.67/projects/note-manager/#/login",
+      "ok": true
+    },
+    {
+      "name": "notes",
+      "url": "https://120.24.117.67/projects/note-manager/#/notes",
+      "ok": true
+    },
+    {
+      "name": "share",
+      "url": "https://120.24.117.67/projects/note-manager/#/share/40c0d984a81e4b358a50825ea8bf8b80",
+      "ok": true
+    }
+  ],
+  "workflow_checks": [
+    {
+      "name": "demo_login",
+      "result": "pass",
+      "detail": "Demo account filled, login submitted, redirected to notes list with 8 notes"
+    },
+    {
+      "name": "note_view",
+      "result": "pass",
+      "detail": "Note editor page loaded with Markdown preview rendering"
+    },
+    {
+      "name": "note_share",
+      "result": "pass",
+      "detail": "Share link generated, accessible without login, content fully rendered"
+    },
+    {
+      "name": "share_unauthenticated",
+      "result": "pass",
+      "detail": "Share page accessible after logout, all Markdown content visible"
+    }
+  ],
+  "failed_requests": [],
+  "http_errors": [],
+  "console_errors": [],
+  "screenshots": [
+    {
+      "name": "login",
+      "path": "evidence/verification/login-0.0.1.png",
+      "description": "Login page with dark theme, centered card, form fields"
+    },
+    {
+      "name": "notes",
+      "path": "evidence/verification/notes-0.0.1.png",
+      "description": "Notes list with 3-column grid, search, tag filters, 8 cards"
+    },
+    {
+      "name": "share",
+      "path": "evidence/verification/share-0.0.1.png",
+      "description": "Public share page with full Markdown rendering, checkboxes, blockquote"
+    }
+  ],
+  "visual_review": {
+    "provider": "kimi",
+    "model": "moonshot-v1-vision",
+    "verdict": "pass",
+    "issues": [],
+    "summary": "All three pages (login, notes list, share) pass visual review. CSS fully loaded, dark theme consistent, layouts centered, all content visible and readable, no overlapping/truncation/blank areas. Markdown renders correctly with headings, lists, checkboxes, and blockquotes."
+  }
+}
