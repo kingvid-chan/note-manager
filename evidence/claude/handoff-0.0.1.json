@@ -1,16 +1,16 @@
 {
   "session_id": "claude-session-2026-06-19-001",
   "technical_plan_path": "docs/decisions/001-technical-plan.md",
-  "status": "tasks_defined",
+  "status": "backend_foundation_completed",
   "iteration": "0.0.1",
   "created_at": "2026-06-19T00:00:00+08:00",
-  "updated_at": "2026-06-19T12:00:00+08:00",
+  "updated_at": "2026-06-19T12:55:00+08:00",
   "ready_for_verification": false,
   "tasks": {
     "total": 23,
     "path": "docs/iterations/0.0.1-tasks.md",
     "phases": [
-      { "phase": 1, "name": "后端基础", "range": "T001–T005", "count": 5 },
+      { "phase": 1, "name": "后端基础", "range": "T001–T005", "count": 5, "status": "completed" },
       { "phase": 2, "name": "核心 API", "range": "T006–T009", "count": 4 },
       { "phase": 3, "name": "前端", "range": "T010–T015", "count": 6 },
       { "phase": 4, "name": "测试", "range": "T016–T020", "count": 5 },
@@ -18,12 +18,21 @@
       { "phase": 6, "name": "交付", "range": "T023", "count": 1 }
     ]
   },
+  "backend_foundation_completed": true,
+  "implementation_commits": [
+    { "task": "T001", "commit": "0c56ad0", "description": "FastAPI 项目骨架搭建" },
+    { "task": "T002", "commit": "2065754", "description": "SQLAlchemy 数据模型" },
+    { "task": "T003", "commit": "5e1b678", "description": "数据库初始化与种子数据" },
+    { "task": "T004", "commit": "87ae549", "description": "认证服务层" },
+    { "task": "T005", "commit": "d8b07f8", "description": "认证 API 路由" }
+  ],
   "deliverables": [
     "docs/decisions/001-technical-plan.md",
-    "docs/iterations/0.0.1-tasks.md"
+    "docs/iterations/0.0.1-tasks.md",
+    "src/note_manager/ (T001-T005)"
   ],
   "next_steps": [
-    "implementation + self-test",
+    "implementation T006-T009 (核心 API)",
     "hermes independent verification"
   ]
 }
