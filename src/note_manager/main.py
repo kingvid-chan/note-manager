@@ -64,9 +64,10 @@ async def healthz():
     return {"status": "ok"}
 
 # ── API 路由 ────────────────────────────────────────────
-from .routers import auth, notes  # noqa: E402
+from .routers import auth, notes, tags  # noqa: E402
 app.include_router(auth.router, prefix=f"{settings.BASE_PATH}/api/auth")
 app.include_router(notes.router, prefix=f"{settings.BASE_PATH}/api/notes")
+app.include_router(tags.router, prefix=f"{settings.BASE_PATH}/api")
 
 # ── 静态文件（最后注册，作为 fallback）────────────────────
 static_dir = os.path.join(os.path.dirname(__file__), "..", "..", "static")
