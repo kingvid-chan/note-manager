@@ -1,5 +1,6 @@
 """FastAPI 应用入口 — 生命周期、中间件、路由挂载。"""
 
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -9,7 +10,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 from .config import settings
-from .database import engine, Base
+from .database import engine, Base, get_db
 
 
 class CacheControlMiddleware(BaseHTTPMiddleware):
@@ -29,7 +30,7 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """应用生命周期 — 启动时创建表、可选种子数据。"""
-    # 导入模型以确保它们注册到 Base.metadata（T002 实现后生效）
+    # 导入模型以确保它们注册到 Base.metadata
     from . import models  # noqa: F401
     Base.metadata.create_all(bind=engine)
 
@@ -62,9 +63,11 @@ async def healthz():
     """Kubernetes / 运维健康探针。"""
     return {"status": "ok"}
 
+# ── API 路由 ────────────────────────────────────────────
+from .routers import auth  # noqa: E402
+app.include_router(auth.router, prefix=f"{settings.BASE_PATH}/api/auth")
 
-# ── 静态文件 ────────────────────────────────────────────
-import os
+# ── 静态文件（最后注册，作为 fallback）────────────────────
 static_dir = os.path.join(os.path.dirname(__file__), "..", "..", "static")
 if os.path.isdir(static_dir):
     app.mount(
@@ -72,7 +75,3 @@ if os.path.isdir(static_dir):
         StaticFiles(directory=static_dir),
         name="static",
     )
-
-
-# 辅助导入 — 供 lifespan 使用
-from .database import get_db  # noqa: E402
