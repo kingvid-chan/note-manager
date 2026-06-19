@@ -1,0 +1,14 @@
+Deploy 0.0.1 to aliyun-cowork
+===============================
+Date: 2026-06-19T13:37+08:00
+Tag: 0.0.1
+Commit: 8056257317052f4a51352efbd7364e18149f7a09
+Server: aliyun-cowork (120.24.117.67)
+Deploy root: /srv/codingagent/note-manager
+Port: 8090
+Public URL: http://120.24.117.67/projects/note-manager/
+Health: {"status":"ok"} (200)
+Index: 200 HTML + Cache-Control: no-cache
+Static CSS: 200
+Static JS: 200
+Nginx: reloaded, syntax OK

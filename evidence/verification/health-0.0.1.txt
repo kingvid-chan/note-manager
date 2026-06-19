@@ -1,0 +1,9 @@
+=== health_checked for note-manager 0.0.1 ===
+service: codingagent-note-manager
+status: active
+health_url: http://120.24.117.67/projects/note-manager/healthz
+health_response: {"status":"ok"}
+public_url: http://120.24.117.67/projects/note-manager/
+public_response: HTTP 200
+port: 127.0.0.1:8090
+server: aliyun-cowork (120.24.117.67)
