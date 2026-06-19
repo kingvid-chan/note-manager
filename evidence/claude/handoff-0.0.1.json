@@ -1,15 +1,28 @@
 {
   "session_id": "claude-session-2026-06-19-001",
   "technical_plan_path": "docs/decisions/001-technical-plan.md",
-  "status": "technical_plan_completed",
+  "status": "tasks_defined",
   "iteration": "0.0.1",
   "created_at": "2026-06-19T00:00:00+08:00",
+  "updated_at": "2026-06-19T12:00:00+08:00",
   "ready_for_verification": false,
+  "tasks": {
+    "total": 23,
+    "path": "docs/iterations/0.0.1-tasks.md",
+    "phases": [
+      { "phase": 1, "name": "后端基础", "range": "T001–T005", "count": 5 },
+      { "phase": 2, "name": "核心 API", "range": "T006–T009", "count": 4 },
+      { "phase": 3, "name": "前端", "range": "T010–T015", "count": 6 },
+      { "phase": 4, "name": "测试", "range": "T016–T020", "count": 5 },
+      { "phase": 5, "name": "文档", "range": "T021–T022", "count": 2 },
+      { "phase": 6, "name": "交付", "range": "T023", "count": 1 }
+    ]
+  },
   "deliverables": [
-    "docs/decisions/001-technical-plan.md"
+    "docs/decisions/001-technical-plan.md",
+    "docs/iterations/0.0.1-tasks.md"
   ],
   "next_steps": [
-    "task_breakdown (tasks_defined evidence)",
     "implementation + self-test",
     "hermes independent verification"
   ]
